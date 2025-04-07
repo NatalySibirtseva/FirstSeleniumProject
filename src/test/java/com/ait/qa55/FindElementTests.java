@@ -88,7 +88,7 @@ public class FindElementTests {
         //start -> ^ //по началу
         driver.findElement(By.cssSelector("[href^='/reg']"));
         System.out.println(driver.findElement(By.cssSelector("[href^='/reg']")).getText());
-        //end on -> $
+        //end on -> $ //по окончанию
         driver.findElement(By.cssSelector("[href$='search']"));
         System.out.println(driver.findElement(By.cssSelector("[href$='search']")).getText());
     }
