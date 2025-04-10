@@ -88,7 +88,7 @@ public class SecondSeleniumTest {
     }
 
     @Test
-    public void findElementByCssSelector(){
+    public void findElementByCssSelector() {
         //tagName == css
         driver.findElement(By.cssSelector("li"));
         System.out.println(driver.findElement(By.cssSelector("li")).getText());
@@ -128,6 +128,88 @@ public class SecondSeleniumTest {
         //end on -> $
         driver.findElement(By.cssSelector("[type$='script']"));
         System.out.println(driver.findElement(By.cssSelector("[type$='script']")).getTagName());
+
+        //tag + id
+        driver.findElement(By.cssSelector("li#topcartlink"));
+        System.out.println(driver.findElement(By.cssSelector("li#topcartlink")).getText());
+        driver.findElement(By.cssSelector("span#poll-voting-progress-1"));
+        System.out.println(driver.findElement(By.cssSelector("span#poll-voting-progress-1")).getTagName());
+
+        //tag + class
+        driver.findElement(By.cssSelector("span.cart-label"));
+        System.out.println(driver.findElement(By.cssSelector("span.cart-label")).getText());
+        driver.findElement(By.cssSelector("div.title"));
+        System.out.println(driver.findElement(By.cssSelector("div.title")).getText());
+
+        //tag + id + [attr='value']
+        driver.findElement(By.cssSelector("div#dialog-notifications-success[title = 'Notification']"));
+        System.out.println(driver.findElement(By.cssSelector("div#dialog-notifications-success[title = 'Notification']")).getTagName());
+        driver.findElement(By.cssSelector("input#small-searchterms[value = 'Search store']"));
+        System.out.println(driver.findElement(By.cssSelector("input#small-searchterms[value = 'Search store']")).getTagName());
+    }
+
+    @Test
+    public void findElementByXpath() {
+        //tag -> xpath -> //tag
+        List<WebElement> elementsImg = driver.findElements(By.xpath("//img"));
+        System.out.println(elementsImg.size());
+        //id -> xpath - //*[@id='value']
+        driver.findElement(By.xpath("//li[@id='topcartlink']"));
+        System.out.println(driver.findElement(By.xpath("//li[@id='topcartlink']")).getText());
+        //className -> xpath - //*[@class='value']
+        driver.findElement(By.xpath("//a[@class='ico-login']"));
+        System.out.println(driver.findElement(By.xpath("//a[@class='ico-login']")).getText());
+
+        //любой атрибут
+        driver.findElement(By.xpath("//form[@action='/search']"));
+        driver.findElement(By.xpath("//form[@method='get']"));
+        driver.findElement(By.xpath("//form[@novalidate='novalidate']"));
+        driver.findElement(By.xpath("//form[@onsubmit='return check_small_search_form()']"));
+
+        //contains -> //*[contains(text(),'Text')] || //*[contains(.,'Text')]
+        driver.findElement(By.xpath("//strong[contains(text(),'you like')]"));
+        driver.findElement(By.xpath("//strong[contains(.,'you like')]"));
+
+        //equal-> //*[text()='Text'] || //*[.='Text']
+        driver.findElement(By.xpath("//strong[text() = 'Do you like nopCommerce?']"));
+        driver.findElement(By.xpath("//strong[. = 'Do you like nopCommerce?']"));
+
+        //start-with -> //*[starts-with(@attr,'StartText')]
+        driver.findElement(By.xpath("//a[starts-with(@class, 'ico-lo')]"));
+
+        //move up
+        driver.findElement(By.xpath("//div[@class='header-logo']/.."));
+        driver.findElement(By.xpath("//ul[@class = 'top-menu']/.."));
+
+        //parent
+        driver.findElement(By.xpath("//ul[@class = 'top-menu']/parent::*"));
+        driver.findElement(By.xpath("//ul[@class = 'top-menu']/parent::div"));
+        driver.findElement(By.xpath("//ul[@class = 'top-menu']/.."));
+        driver.findElement(By.xpath("//div[@class='header-logo']/parent::*"));
+        driver.findElement(By.xpath("//div[@class='header-logo']/parent::div"));
+        driver.findElement(By.xpath("//div[@class='header-logo']/.."));
+
+        //child
+        driver.findElement(By.xpath("//div[@class='header']/child::*"));
+        driver.findElement(By.xpath("//div[@class='header']/child::div[@class='search-box']"));
+
+        //ancestor
+        driver.findElement(By.xpath("//div[@class='header-logo']/ancestor::*")); //5 options
+        driver.findElement(By.xpath("//div[@class='header-logo']/ancestor::div")); //3 options
+        driver.findElement(By.xpath("//div[@class='header-logo']/ancestor::div[1]")); //one option
+
+        //following-sibling
+        driver.findElement(By.xpath("//div[@class='header']/following-sibling::*")); //3 options
+        driver.findElement(By.xpath("//div[@class='header']/following-sibling::*")); //3 options
+        driver.findElement(By.xpath("//div[@class='header']/following-sibling::div[2]")); //one option
+
+        //preceding-sibling
+        driver.findElement(By.xpath("//div[@class='header-links-wrapper']/preceding-sibling::*"));
+
+
+
+
+
 
     }
 

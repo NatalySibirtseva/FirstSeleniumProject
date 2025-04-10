@@ -43,7 +43,7 @@ public class FindElementTests {
     }
 
     @Test
-    public void findElementBySimpleLocators(){
+    public void findElementBySimpleLocators() {
         //by id
         driver.findElement(By.id("city"));
         System.out.println(driver.findElement(By.id("city")).getTagName());
@@ -63,7 +63,7 @@ public class FindElementTests {
     }
 
     @Test
-    public void findElementByCssSelector(){
+    public void findElementByCssSelector() {
         //tagName == css
         //driver.findElement(By.tagName("h1"));
         driver.findElement(By.cssSelector("h1"));
@@ -91,6 +91,66 @@ public class FindElementTests {
         //end on -> $ //по окончанию
         driver.findElement(By.cssSelector("[href$='search']"));
         System.out.println(driver.findElement(By.cssSelector("[href$='search']")).getText());
+
+        //tag + id
+        driver.findElement(By.cssSelector("input#city"));
+        //tag + class
+        driver.findElement(By.cssSelector("div.mobile-header"));
+        driver.findElement(By.cssSelector("div.search-card"));
+        //tag + id + [attr='value']
+        driver.findElement(By.cssSelector("input#city[type='text']"));
+        //tag + class + class + class //если несколько классов в рамках одного тега
+        driver.findElement(By.cssSelector("input.ng-pristine.ng-invalid.pac-target-input"));
+    }
+
+    //Xpath
+    //*[@attr='value']
+    @Test
+    public void findElementByXpath(){
+        //tag -> xpath -> //tag
+        //driver.findElement(By.tagName("h1"));
+        driver.findElement(By.xpath("//h1"));
+
+        //id -> xpath - //*[@id='value']
+        //* это любой тег
+        //driver.findElement(By.id("city"));
+        driver.findElement(By.xpath("//input[@id='city']"));
+
+        //className -> xpath - //*[@class='value']
+        //driver.findElements(By.className("header"));
+        driver.findElements(By.xpath("//div[@class='header']"));
+
+        //contains -> //*[contains(.,'Text')]
+        driver.findElement(By.xpath("//h2[contains(text(),'Yalla')]"));
+        //или проще
+        driver.findElement(By.xpath("//h2[contains(.,'Yalla')]"));
+        //equal-> //*[text()='Text'] //полное совапдение
+        driver.findElement(By.xpath("//h2[text()='Type your data and hit Yalla!']"));
+        //или проще
+        driver.findElement(By.xpath("//h2[.='Type your data and hit Yalla!']"));
+
+        //start-with -> //*[starts-with(@attr,'StartText')]
+        driver.findElement(By.xpath("//label[starts-with(@for,'ci')]"));
+
+        //move up
+        driver.findElement(By.xpath("//a[@class='navigation-link']/.."));
+
+        //parent
+        driver.findElement(By.xpath("//h1/parent::*"));
+        driver.findElement(By.xpath("//h1/parent::div"));
+        driver.findElement(By.xpath("//h1/.."));
+        //зависисомть child будет искать всех детей
+        //ancestor - находит всех предков //предок
+        driver.findElement(By.xpath("//h1/ancestor::*"));//all
+        driver.findElement(By.xpath("//h1/ancestor::div"));//two options
+        driver.findElement(By.xpath("//h1/ancestor::div[2]"));//one option
+
+        //following-sibling - послежующий брат/сестра
+        driver.findElement(By.xpath("//h1/following-sibling::form"));
+        //preceding-sibling - предшествующий брат/сестра
+        driver.findElement(By.xpath("//h2/preceding-sibling::*"));
+
+
     }
 
 }
