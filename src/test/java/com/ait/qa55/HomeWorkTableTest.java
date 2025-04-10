@@ -59,5 +59,6 @@ public class HomeWorkTableTest {
         System.out.println("Item 2 of row 2 from Notranslate table(use css): " + tableNotranslateRow2item2.getText());
         System.out.println("Item 2 of row 2 from Notranslate table(use xpath): " + tableNotranslateRow2item2Xpath.getText());
 
+
     }
 }
