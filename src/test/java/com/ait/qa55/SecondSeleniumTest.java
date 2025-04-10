@@ -207,10 +207,6 @@ public class SecondSeleniumTest {
         driver.findElement(By.xpath("//div[@class='header-links-wrapper']/preceding-sibling::*"));
 
 
-
-
-
-
     }
 
     @AfterMethod

@@ -53,7 +53,6 @@ public class TableTest {
         WebElement lastitemrow8 = driver.findElement(By.cssSelector("tr:nth-child(8) td:last-child"));//xpath -> //tr[8]/td[last()]
         System.out.println(lastitemrow8.getText());
 
-
     }
 
 }

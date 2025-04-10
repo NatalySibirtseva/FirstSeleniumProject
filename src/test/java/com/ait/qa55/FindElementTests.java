@@ -150,7 +150,6 @@ public class FindElementTests {
         //preceding-sibling - предшествующий брат/сестра
         driver.findElement(By.xpath("//h2/preceding-sibling::*"));
 
-
     }
 
 }
