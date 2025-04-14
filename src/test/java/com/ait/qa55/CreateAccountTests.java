@@ -1,64 +1,54 @@
 package com.ait.qa55;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-
-public class CreateAccountTests {
-    WebDriver driver;
-
-    @BeforeMethod
-    public void setUp() {
-        driver = new ChromeDriver();
-        driver.get("https://demowebshop.tricentis.com");
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    }
+public class CreateAccountTests extends TestBase{
 
     @Test
     public void newUserRegistrationPositiveTest() {
-        driver.findElement(By.cssSelector("[href='/register']")).click();
 
-        driver.findElement(By.name("FirstName")).click();
-        driver.findElement(By.name("FirstName")).clear();
-        driver.findElement(By.name("FirstName")).sendKeys("Name11");
+        int i = (int)((System.currentTimeMillis()/1000)%3600);
 
-        driver.findElement(By.name("LastName")).click();
-        driver.findElement(By.name("LastName")).clear();
-        driver.findElement(By.name("LastName")).sendKeys("LastName11");
+        click(By.cssSelector("[href='/register']"));
 
-        driver.findElement(By.name("Email")).click();
-        driver.findElement(By.name("Email")).clear();
-        driver.findElement(By.name("Email")).sendKeys("n1ln2@gm.com");
+        type(By.name("FirstName"), "Name11");
 
-        driver.findElement(By.name("Password")).click();
-        driver.findElement(By.name("Password")).clear();
-        driver.findElement(By.name("Password")).sendKeys("123123");
+        type(By.name("LastName"), "LastName11");
 
-        driver.findElement(By.name("ConfirmPassword")).click();
-        driver.findElement(By.name("ConfirmPassword")).clear();
-        driver.findElement(By.name("ConfirmPassword")).sendKeys("123123");
+        type(By.name("Email"), "n1ln2"+i+"@gm.com");
 
-        driver.findElement(By.name("register-button")).click();
+        type(By.name("Password"), "123123");
+
+        type(By.name("ConfirmPassword"), "123123");
+
+        click(By.name("register-button"));
 
         Assert.assertTrue(isElementPresent(By.xpath("//a[@class='ico-logout']")));
         Assert.assertTrue(isElementPresent(By.xpath("//div[contains(text(),'Your registration completed')]")));
 
+    }
+
+    @Test
+    public void existedUserRegistrationNegativeTest() {
+
+        click(By.cssSelector("[href='/register']"));
+
+        type(By.name("FirstName"), "Name11");
+
+        type(By.name("LastName"), "LastName11");
+
+        type(By.name("Email"), "n1ln2@gm.com");
+
+        type(By.name("Password"), "123123");
+
+        type(By.name("ConfirmPassword"), "123123");
+
+        click(By.name("register-button"));
+
+        Assert.assertTrue(isElementPresent(By.xpath("//li[text() = 'The specified email already exists']")));
 
     }
 
-    public boolean isElementPresent(By locator) {
-        return driver.findElements(locator).size() > 0;
-    }
-
-    @AfterMethod(enabled = false)
-    public void tearDown() {
-        driver.quit();
-    }
 }
